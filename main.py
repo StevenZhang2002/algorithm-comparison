@@ -2,6 +2,8 @@
 import cv2
 from texttable import Texttable
 
+import matplotlib.pyplot as plt
+
 import numpy as np
 
 from RC4 import algRC4
@@ -13,7 +15,6 @@ from blowfish import algBlowfish
 from utils import Histogram
 
 class Test:
-
 
     def __init__(self, path):
         self.MB_CONVERT = 1048576
@@ -70,8 +71,10 @@ class Test:
         f.write(t.draw())
         f.close()
 
+
 # running main
 if __name__ == "__main__":
+
     Original_Path = "input/1024/5.3.01.tiff"
     Encrypted_root_path = "output/1024/"
     test1 = Test("input/1024/5.3.01.tiff")
@@ -82,6 +85,10 @@ if __name__ == "__main__":
     Histogram.generatehistIntegrate(Original_Path,Encrypted_root_path+"$des_img.jpg","DES CBC MODE",Encrypted_root_path)
     Histogram.generatehistIntegrate(Original_Path,Encrypted_root_path+"$RC4_img.jpg","RC4 MODE",Encrypted_root_path)
     Histogram.generatehistIntegrate(Original_Path,Encrypted_root_path+"$rsa_img.jpg","RSA MODE",Encrypted_root_path)
+
+
+
+
     # Histogram.generatehistIntegrate(Original_Path,"AES CBC MODE")
     # Histogram.generatehistIntegrate(Original_Path, "DES CBC MODE")
     # Histogram.generatehistIntegrate(Original_Path, "DES3 CBC MODE")

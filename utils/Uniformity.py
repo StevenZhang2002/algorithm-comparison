@@ -23,13 +23,16 @@ def calculateUniformity(encrypted_path):
 
     # Perform Kolmogorov-Smirnov test
     ks_stat, p_value = kstest(np.cumsum(probabilities), 'uniform')
-    return entropy,ks_stat
+    result = list()
+    result.append(entropy_value)
+    result.append(ks_stat)
+    return result
 
 
 
 
 def generateTable(Image_size):
-    root_path = 'output/256/'
+    root_path = f'../output/{Image_size}/'
     aes_path = "$aes_img.jpg"
     blowfish_path = "$blowfish_img.jpg"
     des_path = "$des_img.jpg"
@@ -40,16 +43,20 @@ def generateTable(Image_size):
     t = Texttable()
     t.add_rows([
         ['Algorithm',"Image Size","Entropy", "Kolmogorov-Smirnov test"],
-        ["Original",Image_size,calculateUniformity("input/256/4.1.03.tiff")],
-        ['DES',  Image_size, calculateUniformity(root_path+des_path)],
-        ['3DES',  Image_size, calculateUniformity(root_path+des3_path)],
-        ['AES', Image_size, calculateUniformity(root_path+aes_path)],
-        ['Blowfish',  Image_size, calculateUniformity(root_path+blowfish_path)],
-        ['RC4',  Image_size, calculateUniformity(root_path+rc4_path)],
-        ['RSA',  Image_size, calculateUniformity(root_path+rsa_path)]]
+        ["Original",Image_size,calculateUniformity(f"../input/{Image_size}/5.3.01.tiff")[0],calculateUniformity(f"../input/{Image_size}/5.3.01.tiff")[1]],
+        ['DES',  Image_size, calculateUniformity(root_path+des_path)[0],calculateUniformity(root_path+des_path)[1]],
+        ['3DES',  Image_size, calculateUniformity(root_path+des3_path)[0],calculateUniformity(root_path+des3_path)[1]],
+        ['AES', Image_size, calculateUniformity(root_path+aes_path)[0],calculateUniformity(root_path+aes_path)[1]],
+        ['Blowfish',  Image_size, calculateUniformity(root_path+blowfish_path)[0],calculateUniformity(root_path+blowfish_path)[1]],
+        ['RC4',  Image_size, calculateUniformity(root_path+rc4_path)[0],calculateUniformity(root_path+rc4_path)[1]],
+        ['RSA',  Image_size, calculateUniformity(root_path+rsa_path)[0],calculateUniformity(root_path+rsa_path)[1]]
+        ]
     )
     print(t.draw())
 
-    f = open("output/256/Algorithm_table_uniformity.txt", "w")
+    f = open(f"../output/{Image_size}/Algorithm_table_uniformity.txt", "w")
     f.write(t.draw())
     f.close()
+
+if __name__ == '__main__':
+    generateTable('1024')
