@@ -67,29 +67,35 @@ def generateHistogram2(path, picture_status):
     plt.savefig(f"histogramPic/{picture_status}'s Histogram")
     plt.show()
 
-def generatehistIntegrate(origin_path,path,status):
+def generatehistIntegrate(origin_path,encrypted_image_path,status,output_path):
+    # 原始图片
     img_original = cv2.imread(origin_path)
+    # 转rgb用来展示
     img_original = cv2.cvtColor(img_original,cv2.COLOR_BGR2RGB)
+    # 灰度图用来生成直方图
     gray_original = cv2.cvtColor(img_original, cv2.COLOR_BGR2GRAY)
-    hist_original, bins_original = np.histogram(gray_original.flatten(), 256, [0, 255])
+    hist_original = cv2.calcHist([img_original], [0], None, [256], [0, 256])
     # 读取图片
-    img = cv2.imread(path)
+    img = cv2.imread(encrypted_image_path)
     # 将图像转换为灰度图
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    hist_encrypted = cv2.calcHist([gray], [0], None, [256], [0, 256])
+
 
     # 计算灰度图的直方图
-    hist, bins = np.histogram(gray.flatten(), 256, [0, 255])
+    hist = cv2.calcHist([gray_original], [0], None, [256], [0, 256])
 
     # 绘制直方图
+    # 1. 原图
     plt.figure(figsize=(20, 6))
     plt.subplot(1,4,1)
     plt.imshow(img_original)
     plt.title('Original Image')
     plt.axis('off')
 
-
+    # 原图直方图
     plt.subplot(1,4,2)
-    plt.plot(hist_original)
+    plt.hist(gray_original.ravel(), bins=256)
     plt.title(f'Original Grayscale Histogram')
     plt.xlabel('Pixel Value')
     plt.ylabel('Frequency')
@@ -102,12 +108,12 @@ def generatehistIntegrate(origin_path,path,status):
     plt.axis('off')
 
     plt.subplot(1, 4, 4)
-    plt.plot(hist)
+    plt.hist(gray.ravel(), bins=256)
     plt.title(f'{status} Grayscale Histogram')
     plt.xlabel('Pixel Value')
     plt.ylabel('Frequency')
 
 
 
-    plt.savefig(f'{status} histogram.png')
+    plt.savefig(f'{output_path}/{status} histogram.png')
     plt.show()
