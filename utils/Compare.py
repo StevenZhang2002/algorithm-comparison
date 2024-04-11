@@ -80,7 +80,7 @@ if __name__ == "__main__":
     # 添加标签和标题
     ax.set_ylim(0, 0.03)
     ax.set_xlabel('Algorithm')
-    ax.set_ylabel('Time taken')
+    ax.set_ylabel('Time taken(S)')
 
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
@@ -108,7 +108,7 @@ if __name__ == "__main__":
     # 添加标签和标题
 
     ax.set_xlabel('Algorithm')
-    ax.set_ylabel('Memory Usage')
+    ax.set_ylabel('Memory Usage(KB)')
 
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
