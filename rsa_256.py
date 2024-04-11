@@ -21,7 +21,7 @@ class algRSA:
 
         ## Encrypting
 
-        st_time = time.time_ns()
+        st_time = time.clock()
 
         encBytes = b''
 
@@ -35,7 +35,7 @@ class algRSA:
                 encBytes = encBytes + rsa.encrypt(byteImg[i:i+chunk_size],self.public_key)
         after_memory = psutil.Process().memory_info().rss
         
-        enc_t = time.time_ns() - st_time
+        enc_t = time.clock() - st_time
         
         ## Droping extra bytes, converting back to img
         
@@ -44,8 +44,8 @@ class algRSA:
         encImg = np.frombuffer(encBytes, dtype=img.dtype).reshape(shape)
         
 
-        np.savetxt("output/$rsa_ciphertxt.txt",encImg)
-        cv2.imwrite("output/$rsa_img.jpg", encImg)
+        np.savetxt("output/1024/$rsa_ciphertxt.txt",encImg)
+        cv2.imwrite("output/1024/$rsa_img.jpg", encImg)
 
         result = list()
         result.append(enc_t)

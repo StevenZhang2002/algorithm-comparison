@@ -115,5 +115,5 @@ def generatehistIntegrate(origin_path,encrypted_image_path,status,output_path):
 
 
 
-    plt.savefig(f'{output_path}/{status} histogram.png')
+    plt.savefig(f'{output_path}{status} histogram.png')
     plt.show()

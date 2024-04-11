@@ -34,19 +34,19 @@ class algAES:
         PadbyteImg = pad(byteImg, 16)
 
         ## Encrypting bytes
-        st_time = time.time_ns()
+        st_time = time.clock()
         before_memory = psutil.Process().memory_info().rss
         encBytes = self.cipher.encrypt(PadbyteImg)
         after_memory = psutil.Process().memory_info().rss
-        enc_time = time.time_ns()-st_time
+        enc_time = time.clock()-st_time
 
         # Convert ciphertext bytes to encrypted image data
         encBytes = encBytes[:len(byteImg)]
         encImg = np.frombuffer(encBytes, dtype=img.dtype).reshape(img.shape)
         
-        np.savetxt("output/$aes_ciphertxt.txt",encImg)
+        np.savetxt("output/1024/$aes_ciphertxt.txt",encImg)
 
-        cv2.imwrite("output/ModeSelection/$aes_img.jpg", encImg)
+        cv2.imwrite("output/1024/$aes_img.jpg", encImg)
 
         result = list()
         result.append(enc_time)

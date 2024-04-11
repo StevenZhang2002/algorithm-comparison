@@ -56,30 +56,37 @@ class Test:
 
         t = Texttable()
         t.add_rows([
-            ['Algorithm', "Key Size(bits)", "Time taken in nanosecs","Memory Usage(MB)"],
-            ['DES', 56,des_encryption_t[0],str(des_encryption_t[1]/self.MB_CONVERT)+"MB"],
-            ['3DES', 168,des3_encryption_t[0],str(des3_encryption_t[1]/self.MB_CONVERT)+"MB"],
-            ['AES', 256,aes_encryption_t[0],str(aes_encryption_t[1]/self.MB_CONVERT)+"MB"],
-            ['Blowfish',56, blowfish_encryption_t[0],str(blowfish_encryption_t[1]/self.MB_CONVERT)+"MB"],
-            ['RC4', 256, RC4_encryption_t[0], str(RC4_encryption_t[1] / self.MB_CONVERT) + "MB"],
-            ['RSA', 128,rsa_encryption_t[0],str(rsa_encryption_t[1] / self.KB_CONVERT) + "MB"]]
+            ['Algorithm', "Key Size(bits)", "Time taken in nanosecs","Memory Usage(KB)"],
+            ['DES', 56,des_encryption_t[0],str(des_encryption_t[1]/self.KB_CONVERT)+"KB"],
+            ['3DES', 168,des3_encryption_t[0],str(des3_encryption_t[1]/self.KB_CONVERT)+"KB"],
+            ['AES', 256,aes_encryption_t[0],str(aes_encryption_t[1]/self.KB_CONVERT)+"KB"],
+            ['Blowfish',56, blowfish_encryption_t[0],str(blowfish_encryption_t[1]/self.KB_CONVERT)+"KB"],
+            ['RC4', 256, RC4_encryption_t[0], str(RC4_encryption_t[1] / self.KB_CONVERT) + "KB"],
+            ['RSA', 128,rsa_encryption_t[0],str(rsa_encryption_t[1] / self.KB_CONVERT) + "KB"]]
         )
         print(t.draw())
 
-        f = open("output/Algorithm_table.txt","w")
+        f = open("output/1024/Algorithm_table.txt","w")
         f.write(t.draw())
         f.close()
 
 # running main
 if __name__ == "__main__":
-    test1 = Test("input/256/4.1.03.tiff")
+    Original_Path = "input/1024/5.3.01.tiff"
+    Encrypted_root_path = "output/1024/"
+    test1 = Test("input/1024/5.3.01.tiff")
     test1.main()
-    Histogram.generateHistogram("test3.jpeg","Original")
-    Histogram.generateHistogram("output/$aes_img.jpg","AES CBC MODE")
-    Histogram.generateHistogram("output/$DES_img.jpg", "DES CBC MODE")
-    Histogram.generateHistogram("output/$des3_img.jpg", "DES3 CBC MODE")
-    Histogram.generateHistogram("output/$blowfish_img.jpg", "Blowfish CBC MODE")
-    Histogram.generatehistIntegrate("input/usc.tiff","output/$RC4_img.jpg","RC4","output/1024")
+    Histogram.generatehistIntegrate(Original_Path,Encrypted_root_path+"$aes_img.jpg","AES CBC MODE",Encrypted_root_path)
+    Histogram.generatehistIntegrate(Original_Path,Encrypted_root_path+"$blowfish_img.jpg","Blowfish CBC MODE",Encrypted_root_path)
+    Histogram.generatehistIntegrate(Original_Path,Encrypted_root_path+"$des3_img.jpg","DES3 CBC MODE",Encrypted_root_path)
+    Histogram.generatehistIntegrate(Original_Path,Encrypted_root_path+"$des_img.jpg","DES CBC MODE",Encrypted_root_path)
+    Histogram.generatehistIntegrate(Original_Path,Encrypted_root_path+"$RC4_img.jpg","RC4 MODE",Encrypted_root_path)
+    Histogram.generatehistIntegrate(Original_Path,Encrypted_root_path+"$rsa_img.jpg","RSA MODE",Encrypted_root_path)
+    # Histogram.generatehistIntegrate(Original_Path,"AES CBC MODE")
+    # Histogram.generatehistIntegrate(Original_Path, "DES CBC MODE")
+    # Histogram.generatehistIntegrate(Original_Path, "DES3 CBC MODE")
+    # Histogram.generatehistIntegrate(Original_Path, "Blowfish CBC MODE")
+    # Histogram.generatehistIntegrate(Original_Path,"output/$RC4_img.jpg","RC4","output/1024")
 
 
     
